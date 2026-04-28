@@ -2,6 +2,7 @@
 <#
 .SYNOPSIS
     Setzt Zeitzone, Land und Regionalformat auf Schweiz (Deutsch).
+    Display Language bleibt English (United States).
 #>
 
 # ============================================================
@@ -27,12 +28,22 @@ Set-Culture -CultureInfo "de-CH"
 Write-Host "[OK] Regionalformat gesetzt: Deutsch (Schweiz)" -ForegroundColor Green
 
 # ============================================================
+# Einstellungen auf Welcome Screen und neue Benutzer uebertragen
+# ============================================================
+Write-Host "[*] Uebertrage Einstellungen auf Welcome Screen und neue Benutzerkonten..." -ForegroundColor Cyan
+Copy-UserInternationalSettingsToSystem -WelcomeScreen $true -NewUser $true
+Write-Host "[OK] Einstellungen auf Welcome Screen und neue Benutzer uebertragen." -ForegroundColor Green
+
+# ============================================================
 # Zusammenfassung
 # ============================================================
 Write-Host "`n=================================================" -ForegroundColor Yellow
 Write-Host " Regionseinstellungen erfolgreich gesetzt!" -ForegroundColor Green
 Write-Host "=================================================" -ForegroundColor Yellow
-Write-Host " Zeitzone:       $(Get-TimeZone | Select-Object -ExpandProperty Id)"
-Write-Host " Land (GeoID):   $(Get-WinHomeLocation | Select-Object -ExpandProperty GeoId) (Schweiz)"
-Write-Host " Regionalformat: $(Get-Culture | Select-Object -ExpandProperty Name) (Deutsch Schweiz)"
-Write-Host "`n Hinweis: Ein Neustart kann nötig sein damit alle Änderungen wirksam werden." -ForegroundColor Yellow
+Write-Host " Zeitzone:         $(Get-TimeZone | Select-Object -ExpandProperty Id)"
+Write-Host " Land (GeoID):     $(Get-WinHomeLocation | Select-Object -ExpandProperty GeoId) (Schweiz)"
+Write-Host " Regionalformat:   $(Get-Culture | Select-Object -ExpandProperty Name) (Deutsch Schweiz)"
+Write-Host " Display Language: English (United States) - unveraendert"
+Write-Host " Welcome Screen:   Einstellungen uebertragen"
+Write-Host " Neue Benutzer:    Einstellungen uebertragen"
+Write-Host "`n Hinweis: Ein Neustart kann noetig sein damit alle Aenderungen wirksam werden." -ForegroundColor Yellow
